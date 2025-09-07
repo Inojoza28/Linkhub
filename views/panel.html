@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="pt-br" class="overflow-x-hidden">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Campus Party 2025 — Rede Privativa</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config = { darkMode: 'media' };</script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    /* Blobs animados */
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.5;
+      animation: float 20s infinite alternate;
+      pointer-events: none;
+    }
+    .blob:nth-child(1) {
+      width: 240px; height: 240px;
+      background: #3e69a6;
+      top: 30px; left: 30px;
+    }
+    .blob:nth-child(2) {
+      width: 240px; height: 240px;
+      background: #5a78ba;
+      bottom: 30px; right: 30px;
+      animation-delay: 5s;
+    }
+    @keyframes float {
+      from { transform: translateY(0) translateX(0) scale(1); }
+      to { transform: translateY(-40px) translateX(20px) scale(1.05); }
+    }
+
+    @keyframes slideUp {
+      0%   { transform: translate(-50%, 100%); opacity: 0; }
+      20%  { transform: translate(-50%, 0); opacity: 1; }
+      80%  { transform: translate(-50%, 0); opacity: 1; }
+      100% { transform: translate(-50%, 100%); opacity: 0; }
+    }
+    .animate-slide-up {
+      animation: slideUp 3s ease forwards;
+    }
+
+    /* Animação do spinner */
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .spin {
+      animation: spin 1s linear infinite;
+    }
+
+    /* Destaque nos cards ao atualizar */
+    @keyframes highlight {
+      0%   { background-color: #bbf7d0e1; } 
+      100% { background-color: rgb(255, 255, 255); }
+    }
+    .highlight {
+      animation: highlight 1s ease forwards;
+    }
+
+    /* Truncar links longos */
+    .truncate-multiline {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      word-break: break-word;
+    }
+  </style>
+</head>
+<body class="relative min-h-screen flex flex-col bg-gradient-to-b from-gray-50 to-white text-gray-800 overflow-x-hidden">
+  <!-- Blobs -->
+  <div class="blob"></div>
+  <div class="blob"></div>
+
+  <!-- Header -->
+<header class="sticky top-8 z-30 px-4">
+  <div class="relative max-w-6xl mx-auto flex items-center justify-between
+              rounded-3xl border border-white/40 dark:border-white/10
+              bg-white/40 dark:bg-gray-900/40 
+              backdrop-blur-3xl 
+              backdrop-saturate-125
+              
+              shadow-lg shadow-black/5 px-5 py-4 sm:px-8 sm:py-5">
+
+    <!-- Glow sutil de fundo (mantido, pois contribui para o efeito) -->
+    <div aria-hidden="true"
+         class="pointer-events-none absolute -inset-x-6 -inset-y-4 -z-10 rounded-[2rem]
+                bg-gradient-to-r from-blue-500/10 via-cyan-400/10 to-purple-400/10 blur-2xl">
+    </div>
+
+    <!-- Logo + Título -->
+    <div class="flex items-center gap-3">
+      <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-r from-blue-600 to-cyan-500
+                  flex items-center justify-center shadow-sm shrink-0">
+        <i data-lucide="network" class="w-5 h-5 text-white"></i>
+      </div>
+      <div class="leading-tight">
+        <h1 class="font-semibold text-gray-900 dark:text-gray-50 text-base sm:text-xl">
+          LinkHub
+        </h1>
+        <span class="block text-xs sm:text-sm text-gray-500 dark:text-gray-400">
+          Campus Party 2025
+        </span>
+      </div>
+    </div>
+
+    <!-- Ações -->
+    <nav class="flex items-center gap-2 sm:gap-3 text-sm">
+      <!-- Atualizar -->
+      <button id="refreshBtn"
+              class="flex items-center justify-center gap-2 px-3 py-2 rounded-xl
+                     border border-transparent hover:border-gray-300/50 dark:hover:border-white/10
+                     bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10
+                     text-gray-700 dark:text-gray-300 font-medium transition-all
+                     shadow-sm hover:shadow-md">
+        <i data-lucide="refresh-ccw" class="w-5 h-5"></i>
+        <span class="hidden sm:inline">Atualizar</span>
+      </button>
+
+      <!-- Sair -->
+      <a href="/logout"
+         class="flex items-center justify-center gap-2 px-4 py-2 rounded-xl
+                bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-medium
+                shadow-md hover:shadow-lg hover:scale-[1.03] active:scale-[0.98] transition">
+        <i data-lucide="log-out" class="w-5 h-5"></i>
+        <span class="hidden sm:inline">Sair</span>
+      </a>
+    </nav>
+  </div>
+</header>
+
+
+  <!-- Conteúdo -->
+  <main class="flex-1 max-w-6xl mx-auto px-6 pt-20 pb-12 relative z-10 w-full">
+    <!-- Alerta fixo: já está na lista -->
+    <div id="alreadyInList" 
+        class="hidden max-w-3xl mx-auto mt-4 mb-6 px-4 py-3 rounded-xl border 
+                flex items-center justify-center gap-2
+                bg-green-100/80 text-green-800 border-green-300 font-medium">
+      <i data-lucide="check-circle" class="w-5 h-5"></i>
+      <span>Você já está na lista!</span>
+    </div>
+    
+    <section class="grid lg:grid-cols-3 gap-10 items-start justify-center">
+
+      <!-- Formulário -->
+      <div class="lg:col-span-1 w-full max-w-md mx-auto rounded-2xl border border-gray-200 p-6 shadow-md bg-white">
+        <h2 class="text-lg font-semibold flex items-center gap-2 mb-4">
+          <i data-lucide="user-plus" class="w-5 h-5 text-blue-600"></i>
+          Cadastre-se
+        </h2>
+        <form id="register-form" class="space-y-4">
+          <div class="relative">
+            <i data-lucide="user" class="absolute left-3 top-3 w-5 h-5 text-gray-400"></i>
+            <input id="name" type="text" required placeholder="Seu nome"
+                   class="w-full pl-10 rounded-xl px-4 py-3 border border-gray-300 focus:ring-4 focus:ring-blue-100 outline-none" />
+          </div>
+          <div class="relative">
+            <i data-lucide="linkedin" class="absolute left-3 top-3 w-5 h-5 text-gray-400"></i>
+            <input id="linkedin" type="url" required placeholder="Seu LinkedIn"
+                   class="w-full pl-10 rounded-xl px-4 py-3 border border-gray-300 focus:ring-4 focus:ring-blue-100 outline-none" />
+          </div>
+          <button type="submit"
+                  class="w-full rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-medium py-3 shadow-md hover:scale-[1.02] transition">
+            Entrar na rede
+          </button>
+          <p id="form-msg" class="text-sm mt-2 hidden"></p>
+        </form>
+      </div>
+
+      <!-- Lista de participantes -->
+      <div class="lg:col-span-2 w-full">
+        <div class="flex items-center justify-between mb-6">
+          <h2 class="text-lg font-semibold flex items-center gap-2">
+            <i data-lucide="users" class="w-5 h-5 text-blue-600"></i>
+            Participantes
+          </h2>
+          <span id="count" class="text-sm text-gray-600"></span>
+        </div>
+        <div class="mb-4">
+        <input id="searchInput" type="text" placeholder="Buscar participante..."
+              class="w-full sm:w-1/2 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-200 outline-none" />
+      </div>
+        <div id="grid" class="grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        <p id="empty" class="text-sm text-gray-500 hidden">Seja o primeiro a se cadastrar ✨</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer minimalista -->
+  <footer class="border-t border-gray-200 bg-white/70 backdrop-blur py-4 text-center text-sm text-gray-600 relative z-10">
+    Feito com ❤ por Gabriel — Tecnologia, Inovação e Futuro
+  </footer>
+
+  <!-- Botão flutuante de atualizar -->
+  <button id="refreshFloat"
+          class="hidden fixed top-20 right-6 z-30 p-3 rounded-full bg-blue-600 text-white shadow-lg hover:bg-blue-700 transition">
+    <i data-lucide="refresh-ccw" class="w-5 h-5"></i>
+  </button>
+
+  <!-- Template dos cards -->
+  <template id="card-tpl">
+    <div class="card group rounded-2xl border border-gray-200 bg-white p-5 shadow-sm hover:shadow-lg transition transform hover:-translate-y-0.5">
+      <div class="flex items-center gap-3">
+        <div class="w-12 h-12 rounded-full text-white grid place-items-center text-lg font-semibold shadow" data-avatar></div>
+        <div class="min-w-0">
+          <div class="font-medium truncate" data-name></div>
+          <a class="text-sm text-blue-600 hover:underline truncate-multiline" target="_blank" rel="noopener" data-link></a>
+        </div>
+      </div>
+      <a class="mt-4 inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-[#0a66c2] text-white text-sm font-medium hover:brightness-110 transition" target="_blank" rel="noopener" data-btn>
+        <i data-lucide="linkedin" class="w-4 h-4"></i>
+        Ver no LinkedIn
+      </a>
+    </div>
+  </template>
+
+  <!-- Toast -->
+  <div id="toast"
+     class="fixed bottom-6 left-1/2 -translate-x-1/2 px-6 py-3 rounded-xl shadow-lg hidden z-50 
+            text-sm font-medium backdrop-blur-md border">
+  </div>
+
+<script>
+  lucide.createIcons();
+  const grid = document.getElementById('grid');
+  const empty = document.getElementById('empty');
+  const count = document.getElementById('count');
+  const form = document.getElementById('register-form');
+  const nameInput = document.getElementById('name');
+  const linkedinInput = document.getElementById('linkedin');
+  const toast = document.getElementById('toast');
+  const refreshBtn = document.getElementById('refreshBtn');
+  const refreshFloat = document.getElementById('refreshFloat');
+  const alreadyInList = document.getElementById('alreadyInList');
+  const searchInput = document.getElementById('searchInput');
+
+  let allParticipants = [];
+
+  // ===== Toast para avisos rápidos =====
+  function showToast(text, type="info") {
+    toast.textContent = text;
+    toast.className = "fixed bottom-6 left-1/2 -translate-x-1/2 px-6 py-3 rounded-xl shadow-lg z-50 text-sm font-medium backdrop-blur-md border animate-slide-up";
+
+    if (type === "success") {
+      toast.classList.add("bg-green-100/80", "text-green-800", "border-green-300");
+    } else if (type === "error") {
+      toast.classList.add("bg-red-100/80", "text-red-800", "border-red-300");
+    } else {
+      toast.classList.add("bg-blue-100/80", "text-blue-800", "border-blue-300");
+    }
+
+    toast.classList.remove("hidden");
+    setTimeout(() => toast.classList.add("hidden"), 3000);
+  }
+
+  // ===== Avatar colorido =====
+  function colorFromString(s) {
+    let h = 0; for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) % 360;
+    return `linear-gradient(135deg, hsl(${h} 70% 50%), hsl(${(h+40)%360} 70% 60%))`;
+  }
+
+  // ===== Renderiza participantes =====
+  function renderParticipants(list = []) {
+    grid.innerHTML = '';
+    if (!list.length) { 
+      empty.classList.remove('hidden'); 
+      count.textContent = ''; 
+      return; 
+    }
+    empty.classList.add('hidden');
+    count.textContent = `${list.length} participantes`;
+    const tpl = document.getElementById('card-tpl');
+    list.forEach(p => {
+      const node = tpl.content.cloneNode(true);
+      const avatar = node.querySelector('[data-avatar]');
+      avatar.style.background = colorFromString(p.name);
+      avatar.textContent = (p.name||'?')[0].toUpperCase();
+      node.querySelector('[data-name]').textContent = p.name;
+      node.querySelector('[data-link]').textContent = p.linkedin_url;
+      node.querySelector('[data-link]').href = p.linkedin_url;
+      node.querySelector('[data-btn]').href = p.linkedin_url;
+      grid.appendChild(node);
+    });
+    lucide.createIcons();
+  }
+
+  // ===== Verifica localStorage com a lista atual =====
+  function checkLocalStorage() {
+    const savedLinkedin = localStorage.getItem("myLinkedin");
+    if (!savedLinkedin) {
+      alreadyInList.classList.add("hidden");
+      return;
+    }
+
+    // Confere se ainda existe no backend
+    const found = allParticipants.some(p => p.linkedin_url === savedLinkedin);
+    if (found) {
+      alreadyInList.classList.remove("hidden");
+      linkedinInput.value = savedLinkedin; // opcional: pré-preencher
+    } else {
+      localStorage.removeItem("myLinkedin");
+      alreadyInList.classList.add("hidden");
+    }
+  }
+
+  // ===== Filtro de busca =====
+  function applySearchFilter() {
+    const query = searchInput.value.trim().toLowerCase();
+    if (!query) {
+      renderParticipants(allParticipants);
+      return;
+    }
+    const filtered = allParticipants.filter(p => 
+      p.name.toLowerCase().includes(query)
+    );
+    renderParticipants(filtered);
+  }
+  searchInput.addEventListener('input', applySearchFilter);
+
+  // ===== Carregar lista =====
+  async function loadParticipants(showFeedback = false) {
+    try {
+      const res = await fetch('/api/participants');
+      if (!res.ok) throw new Error('auth');
+      const data = await res.json();
+      allParticipants = data.participants || [];
+      renderParticipants(allParticipants);
+      applySearchFilter(); // aplica filtro ativo
+      checkLocalStorage(); // valida no backend
+
+      if (showFeedback) {
+        showToast("Lista atualizada 🔄", "info");
+      }
+    } catch {
+      window.location.href = '/';
+    }
+  }
+
+  // ===== Cadastro =====
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const name = nameInput.value.trim();
+    const linkedin = linkedinInput.value.trim();
+
+    // Se já está salvo e válido
+    if (localStorage.getItem("myLinkedin") === linkedin) {
+      alreadyInList.classList.remove("hidden");
+      return;
+    }
+
+    try {
+      const res = await fetch('/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, linkedin })
+      });
+      const data = await res.json();
+      if (data.status === 'created') {
+        localStorage.setItem("myLinkedin", linkedin); 
+        alreadyInList.classList.remove("hidden");
+        showToast("Cadastro realizado! 🎉", "success");
+        nameInput.value = "";
+      } else if (data.status === 'exists') {
+        localStorage.setItem("myLinkedin", linkedin); 
+        alreadyInList.classList.remove("hidden");
+        showToast("Você já está na lista ✅", "info");
+      }
+      loadParticipants();
+    } catch {
+      showToast("Erro ao cadastrar.", "error");
+    }
+  });
+
+  // ===== Mostrar/esconder botão flutuante =====
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 100) {
+      refreshFloat.classList.remove("hidden");
+    } else {
+      refreshFloat.classList.add("hidden");
+    }
+  });
+
+  // ===== Botões atualizar =====
+  refreshBtn.addEventListener('click', () => loadParticipants(true));
+  refreshFloat.addEventListener('click', () => loadParticipants(true));
+
+  // ===== Inicialização =====
+  loadParticipants();
+  setInterval(loadParticipants, 5000);
+</script>
+
+
+
+</body>
+</html>
