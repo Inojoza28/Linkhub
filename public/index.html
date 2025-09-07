@@ -1,177 +1,155 @@
 <!doctype html>
-<html lang="pt-br" class="overflow-x-hidden">
+<html lang="pt-br" class="overflow-x-hidden scroll-smooth">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>LinkHub — Campus Party 2025</title>
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    tailwind.config = { 
-      darkMode: 'media',
+    tailwind.config = {
       theme: {
         extend: {
           animation: {
-            'float': 'float 18s infinite alternate ease-in-out',
-            'slide-up': 'slideUp 3.5s ease-out forwards',
-            'shake': 'shake 0.4s ease-in-out',
-            'spin-fast': 'spin 0.6s linear infinite',
+            float: 'float 20s infinite alternate',
+            'slide-up': 'slideUp 3s ease forwards',
+            shake: 'shake 0.4s ease-in-out',
+            spin: 'spin 1s linear infinite',
           },
           keyframes: {
             float: {
-              '0%': { transform: 'translateY(0 ) translateX(0) scale(1)' },
-              '100%': { transform: 'translateY(-30px) translateX(20px) scale(1.1)' },
+              'from': { transform: 'translateY(0 ) translateX(0) scale(1)' },
+              'to': { transform: 'translateY(-40px) translateX(20px) scale(1.05)' },
             },
             slideUp: {
-              '0%': { transform: 'translate(-50%, 120%)', opacity: '0' },
-              '15%, 85%': { transform: 'translate(-50%, 0)', opacity: '1' },
-              '100%': { transform: 'translate(-50%, 120%)', opacity: '0' },
+              '0%': { transform: 'translate(-50%, 100%)', opacity: '0' },
+              '20%': { transform: 'translate(-50%, 0)', opacity: '1' },
+              '80%': { transform: 'translate(-50%, 0)', opacity: '1' },
+              '100%': { transform: 'translate(-50%, 100%)', opacity: '0' },
             },
             shake: {
               '0%, 100%': { transform: 'translateX(0)' },
               '25%': { transform: 'translateX(-6px)' },
               '75%': { transform: 'translateX(6px)' },
             },
-          }
-        }
-      }
+          },
+        },
+      },
     };
   </script>
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
-    :root { --spotlight-x: 50%; --spotlight-y: 50%; }
-    * { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
-
-    body::before {
-      content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      pointer-events: none;
-      background: radial-gradient(circle at var(--spotlight-x ) var(--spotlight-y), transparent 10%, rgba(0,0,0,0.02) 30%);
-      opacity: 0; transition: opacity 0.4s ease;
-    }
-    body:hover::before { opacity: 1; }
-    .dark body::before { background: radial-gradient(circle at var(--spotlight-x) var(--spotlight-y), transparent 10%, rgba(255,255,255,0.02) 35%); }
-
     .blob {
-      position: absolute; border-radius: 50%; filter: blur(90px);
-      opacity: 0.15; animation: float 18s infinite alternate ease-in-out;
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px );
+      opacity: 0.3;
+      animation: float 20s infinite alternate;
+      pointer-events: none;
     }
-    .blob-1 { width: 320px; height: 320px; background: #3b82f6; top: 10%; left: 8%; }
-    .blob-2 { width: 260px; height: 260px; background: #8b5cf6; bottom: 15%; right: 12%; animation-delay: 5s; }
-    .blob-3 { width: 220px; height: 220px; background: #06b6d4; top: 45%; right: 25%; animation-delay: 2s; }
-    .dark .blob { opacity: 0.2; filter: blur(120px); }
-
-    .card-main {
-      background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .dark .card-main {
-      background: rgba(23, 23, 23, 0.7); border-color: rgba(255, 255, 255, 0.1);
-      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
-    }
-    .card-main:hover { transform: translateY(-4px); box-shadow: 0 35px 60px -15px rgba(0,0,0,0.12); }
-
-    .input-field-wrapper:focus-within {
-      border-color: #3b82f6;
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
-    }
-    .input-field-wrapper:focus-within .input-icon { color: #3b82f6; }
-
-    .btn-primary {
-      background: linear-gradient(135deg, #2563eb, #1d4ed8);
-      transition: all 0.3s ease;
-    }
-    .btn-primary:hover:not(:disabled) { transform: translateY(-3px); box-shadow: 0 10px 25px -5px rgba(37,99,235,0.4); }
-    .btn-primary:active:not(:disabled) { transform: translateY(-1px); }
-
-    .logo-gradient {
-      background: linear-gradient(135deg, #3b82f6, #8b5cf6, #14b8a6);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    }
+    .blob-1 { width: 300px; height: 300px; background: #3e69a6; top: 10px; left: 10px; }
+    .blob-2 { width: 250px; height: 250px; background: #5a78ba; bottom: 10px; right: 10px; animation-delay: 5s; }
   </style>
 </head>
-<body class="relative min-h-screen flex flex-col bg-gray-50 dark:bg-gray-950 text-gray-800 dark:text-gray-200 transition-colors duration-300">
-  <div class="fixed inset-0 z-0"><div class="blob blob-1"></div><div class="blob blob-2"></div><div class="blob blob-3"></div></div>
+<body class="relative min-h-screen flex flex-col bg-gray-50 text-gray-800">
+  <!-- Fundo Decorativo -->
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
 
-  <header class="sticky top-0 z-20 bg-white/60 dark:bg-gray-950/60 backdrop-blur-sm border-b border-gray-200/80 dark:border-gray-800/80 transition-colors duration-300">
-    <div class="max-w-4xl mx-auto px-6 py-4 flex items-center justify-center">
-      <i data-lucide="link" class="w-5 h-5 text-blue-600 dark:text-blue-400"></i>
-      <h1 class="font-semibold text-gray-900 dark:text-white ml-2">LinkHub</h1>
-      <span class="ml-2 text-sm text-gray-500 dark:text-gray-400">— Campus Party 2025</span>
+  <!-- Header -->
+  <header class="sticky top-4 sm:top-6 z-30 px-4 w-full">
+    <div class="max-w-4xl mx-auto flex items-center justify-center rounded-2xl border border-gray-200/80 bg-white/60 backdrop-blur-xl shadow-lg shadow-gray-900/5 px-4 py-3">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center shadow-md shadow-blue-500/20 shrink-0">
+          <i data-lucide="link" class="w-5 h-5 text-white"></i>
+        </div>
+        <div class="leading-tight">
+          <h1 class="font-bold text-gray-900 text-lg tracking-tight">LinkHub</h1>
+          <span class="hidden sm:block text-xs text-gray-500">Campus Party 2025</span>
+        </div>
+      </div>
     </div>
   </header>
 
-  <main class="flex-1 flex items-center justify-center px-6 py-12 relative z-10">
+  <!-- Conteúdo Principal -->
+  <main class="flex-1 flex items-center justify-center px-4 py-8 sm:py-12 relative z-10">
     <div class="w-full max-w-md">
-      <div class="card-main rounded-3xl p-8">
-        <div class="text-center mb-10">
-        <div class="w-14 h-14 rounded-2xl 
-                    bg-gradient-to-r from-blue-600 to-cyan-500 
-                    flex items-center justify-center mx-auto mb-4 
-                    shadow-sm shadow-blue-500/10">
-          <i data-lucide="link" class="w-7 h-7 text-white"></i>
+      <!-- Card Principal -->
+      <div class="rounded-2xl border border-gray-200/80 bg-white/60 backdrop-blur-xl shadow-lg shadow-gray-900/5 p-6 sm:p-8">
+        <!-- Cabeçalho do Card -->
+        <div class="text-center mb-8">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center mx-auto mb-4 shadow-md shadow-blue-500/20">
+            <i data-lucide="link" class="w-7 h-7 text-white"></i>
+          </div>
+          <h2 class="text-2xl font-bold text-gray-900 mb-2">Bem-vindo</h2>
+          <p class="text-gray-600 text-sm">Acesse sua rede na Campus Party 2025</p>
         </div>
-        <h1 class="text-2xl sm:text-3xl font-semibold text-gray-900 dark:text-gray-50 mb-2">
-          LinkHub
-        </h1>
-        <p class="text-gray-500 dark:text-gray-400 text-sm sm:text-base">
-          Acesse sua rede na Campus Party 2025
-        </p>
-      </div>
 
-        <div id="password-hint" class="bg-amber-50 dark:bg-amber-900/30 border border-amber-300 dark:border-amber-500/30 rounded-xl p-4 mb-6 cursor-pointer transition-all duration-200 hover:shadow-lg hover:shadow-amber-500/10 hover:-translate-y-1">
+        <!-- Dica da Senha -->
+        <div id="password-hint" class="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6 cursor-pointer transition-all duration-200 hover:shadow-md hover:-translate-y-1">
           <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-full bg-amber-400 dark:bg-amber-500 flex items-center justify-center flex-shrink-0">
+            <div class="w-10 h-10 rounded-full bg-amber-400 flex items-center justify-center shrink-0">
               <i data-lucide="key-round" class="w-5 h-5 text-white"></i>
             </div>
-            <div>
-              <p class="text-amber-900 dark:text-amber-200 font-semibold text-sm">Precisa da senha?</p>
-              <p class="text-amber-700 dark:text-amber-400 text-xs mt-0.5">Clique para revelar: <span class="font-mono font-bold tracking-wider">eu-fui-2025</span></p>
+            <div class="min-w-0 flex-1">
+              <p class="text-amber-900 font-semibold text-sm">Precisa da senha?</p>
+              <p class="text-amber-700 text-xs mt-0.5">Clique para revelar: <span class="font-mono font-bold">eu-fui-2025</span></p>
             </div>
           </div>
         </div>
 
+        <!-- Formulário -->
         <form id="access-form" class="space-y-6">
-          <div class="space-y-2">
-            <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Senha do evento</label>
-            <div class="relative flex items-center input-field-wrapper bg-white dark:bg-gray-800 rounded-xl border-2 border-gray-200 dark:border-gray-700 transition-all duration-300">
-              <input id="password" type="password" required placeholder="Digite a senha aqui"
-                class="w-full px-4 py-3.5 text-gray-800 dark:text-gray-100 bg-transparent placeholder:text-gray-400 outline-none"/>
-              <div class="pr-4"><i data-lucide="lock" class="w-4 h-4 text-gray-400 input-icon transition-colors duration-300"></i></div>
+          <div>
+            <label for="password" class="block text-sm font-medium text-gray-700 mb-2">Senha do evento</label>
+            <div class="relative">
+              <i data-lucide="lock" class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+              <input 
+                id="password" 
+                type="password" 
+                required 
+                placeholder="Digite a senha aqui"
+                class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition bg-white"
+              />
             </div>
           </div>
-          <button type="submit" id="submit-btn" class="btn-primary w-full rounded-xl px-6 py-3.5 font-semibold text-white flex items-center justify-center gap-2">
+
+          <button 
+            type="submit" 
+            id="submit-btn" 
+            class="w-full rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 shadow-sm hover:shadow-md transition-all transform hover:scale-[1.02] active:scale-[0.99] flex items-center justify-center gap-2"
+          >
             <span id="btn-text">Acessar rede privativa</span>
-            <div id="spinner" class="hidden"><i data-lucide="loader-2" class="w-5 h-5 animate-spin-fast"></i></div>
+            <div id="spinner" class="hidden">
+              <i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i>
+            </div>
           </button>
 
-          <div id="error" class="hidden bg-red-50 dark:bg-red-900/40 border border-red-200 dark:border-red-700 rounded-xl p-3">
+          <!-- Mensagem de Erro -->
+          <div id="error" class="hidden bg-red-50 border border-red-200 rounded-lg p-3">
             <div class="flex items-center gap-2">
-              <i data-lucide="alert-circle" class="w-4 h-4 text-red-500 flex-shrink-0"></i>
-              <p class="text-red-700 dark:text-red-300 text-sm">Senha incorreta. Verifique e tente novamente.</p>
+              <i data-lucide="alert-circle" class="w-4 h-4 text-red-500 shrink-0"></i>
+              <p class="text-red-700 text-sm">Senha incorreta. Verifique e tente novamente.</p>
             </div>
           </div>
         </form>
       </div>
 
-      <div class="flex items-center justify-center gap-2 mt-8 text-gray-500 dark:text-gray-400 text-sm">
+      <!-- Status do Sistema -->
+      <div class="flex items-center justify-center gap-2 mt-6 text-gray-500 text-sm">
         <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
         <span>Todos os sistemas online</span>
       </div>
     </div>
   </main>
 
-  <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 px-5 py-3 rounded-xl shadow-lg hidden z-50 text-sm font-medium backdrop-blur-md border"></div>
+  <!-- Toast (Notificações) -->
+  <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 px-5 py-3 rounded-lg shadow-xl hidden z-50 text-sm font-medium backdrop-blur-md border w-11/12 max-w-sm text-center"></div>
 
+  <!-- Script (Funcionalidade Original Mantida) -->
   <script>
     lucide.createIcons();
     
-    // --- Elementos do DOM ---
+    // Elementos do DOM
     const form = document.getElementById('access-form');
     const errorEl = document.getElementById('error');
     const submitBtn = document.getElementById('submit-btn');
@@ -180,31 +158,24 @@
     const passwordInput = document.getElementById('password');
     const passwordHint = document.getElementById('password-hint');
     const toast = document.getElementById('toast');
-    const body = document.body;
 
-    // --- Funções ---
+    // Função para mostrar toast
     function showToast(text, type = "info") {
-      const typeClasses = {
-        success: "bg-green-100/80 text-green-800 border-green-300 dark:bg-green-500/20 dark:text-green-200 dark:border-green-500/30",
-        error: "bg-red-100/80 text-red-800 border-red-300 dark:bg-red-500/20 dark:text-red-200 dark:border-red-500/30",
-        info: "bg-blue-100/80 text-blue-800 border-blue-300 dark:bg-blue-500/20 dark:text-blue-200 dark:border-blue-500/30",
-      };
       toast.textContent = text;
-      toast.className = `fixed bottom-6 left-1/2 px-5 py-3 rounded-xl shadow-lg z-50 text-sm font-medium backdrop-blur-md border animate-slide-up ${typeClasses[type]}`;
+      toast.className = "fixed bottom-6 left-1/2 -translate-x-1/2 px-5 py-3 rounded-lg shadow-xl z-50 text-sm font-medium backdrop-blur-md border w-11/12 max-w-sm text-center animate-slide-up";
+      if (type === "success") toast.classList.add("bg-green-500/15", "text-green-800", "border-green-200");
+      else if (type === "error") toast.classList.add("bg-red-500/15", "text-red-800", "border-red-200");
+      else toast.classList.add("bg-blue-500/15", "text-blue-800", "border-blue-200");
       toast.classList.remove("hidden");
-      setTimeout(() => toast.classList.add("hidden"), 3400);
+      setTimeout(() => toast.classList.add("hidden"), 3000);
     }
 
-    // --- Event Listeners ---
+    // Foco automático no campo de senha
     document.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => passwordInput.focus(), 500);
     });
 
-    body.addEventListener('mousemove', (e) => {
-      body.style.setProperty('--spotlight-x', `${e.clientX}px`);
-      body.style.setProperty('--spotlight-y', `${e.clientY}px`);
-    });
-
+    // Clique na dica da senha
     passwordHint.addEventListener('click', () => {
       passwordInput.value = 'eu-fui-2025';
       passwordInput.focus();
@@ -212,11 +183,14 @@
       showToast("Senha preenchida! ✨", "success");
     });
 
-    passwordInput.addEventListener('input', () => { 
-      if (!errorEl.classList.contains('hidden')) errorEl.classList.add('hidden'); 
+    // Limpar erro ao digitar
+    passwordInput.addEventListener('input', () => {
+      if (!errorEl.classList.contains('hidden')) {
+        errorEl.classList.add('hidden');
+      }
     });
 
-    // --- LÓGICA DO SISTEMA ORIGINAL ---
+    // Lógica do formulário (mantida original)
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       errorEl.classList.add('hidden');
@@ -228,20 +202,28 @@
       submitBtn.classList.add('opacity-75');
 
       const password = passwordInput.value.trim();
-      await new Promise(r => setTimeout(r, 1000)); // Mantém a simulação de delay
+      await new Promise(r => setTimeout(r, 1000)); // Simulação de delay
       
       try {
         // Lógica original de fetch
-        const res = await fetch('/auth',{ method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ password })});
+        const res = await fetch('/auth', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ password })
+        });
+        
         if (!res.ok) throw new Error('invalid');
         
         // Sucesso
         btnText.textContent = 'Entrando... ✓';
         spinner.classList.add('hidden');
         submitBtn.classList.remove('opacity-75');
-        submitBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)'; // Cor de sucesso
+        submitBtn.classList.remove('bg-blue-600', 'hover:bg-blue-700');
+        submitBtn.classList.add('bg-green-600', 'hover:bg-green-700');
         showToast("Acesso liberado! 🚀", "success");
-        setTimeout(()=>{ window.location.href='/panel'; }, 1500);
+        setTimeout(() => {
+          window.location.href = '/panel';
+        }, 1500);
       
       } catch {
         // Erro
@@ -250,8 +232,12 @@
         submitBtn.classList.remove('opacity-75');
         btnText.textContent = 'Acessar rede privativa';
         errorEl.classList.remove('hidden');
-        form.classList.add('shake');
-        setTimeout(() => { form.classList.remove('shake'); passwordInput.focus(); passwordInput.select(); }, 400);
+        form.classList.add('animate-shake');
+        setTimeout(() => {
+          form.classList.remove('animate-shake');
+          passwordInput.focus();
+          passwordInput.select();
+        }, 400);
         showToast("Senha incorreta. Tente novamente.", "error");
       }
     });
