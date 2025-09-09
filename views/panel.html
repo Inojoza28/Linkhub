@@ -46,8 +46,11 @@
     .truncate-multiline { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; word-break: break-word; }
 
     .hero-background {
-    background-image: radial-gradient(ellipse 80% 60% at 50% 40%, #dbeafe, transparent);
-  }
+      background-image: 
+        linear-gradient(rgba(14, 21, 35, 0.3), rgba(14, 21, 35, 0.3)),
+        radial-gradient(circle at 50% 45%, #0d4dd0, #1e293b 90%);
+    }
+  
     .truncate-multiline { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; word-break: break-word; }
     
     /* Estilos para as animações em sequência */
@@ -88,29 +91,29 @@
   <!-- Conteúdo Principal -->
   <main class="flex-1 max-w-6xl mx-auto px-4 w-full">
     
-    <!-- NOVA SEÇÃO DE BOAS-VINDAS (HERO SECTION) -->
-    <section class="relative text-center mt-8 sm:mt-12 pt-16 pb-16 sm:pt-24 sm:pb-24 hero-background rounded-b-[2rem] sm:rounded-b-[3rem] overflow-hidden mb-12 sm:mb-16">
+    <!-- SEÇÃO DE BOAS-VINDAS (HERO SECTION) -->
+    <section class="relative text-center mt-8 sm:mt-12 pt-16 pb-16 sm:pt-24 sm:pb-24 hero-background rounded-3xl sm:rounded-t-none sm:rounded-b-[3rem] overflow-hidden mb-12 sm:mb-16">
       <div class="absolute inset-0 w-full h-full pointer-events-none">
-        
-        <!-- Ícones-->
-        <i data-lucide="share-2" class="absolute top-[25%] left-[5%] w-6 h-6 sm:w-8 sm:h-8 text-blue-200 opacity-80 animate-subtle-float" style="animation-delay: 0.5s;"></i>
-        <i data-lucide="wifi" class="hidden sm:block absolute top-[15%] right-[8%] w-12 h-12 text-blue-200 opacity-60 animate-subtle-float"></i>
-        <i data-lucide="at-sign" class="hidden md:block absolute bottom-[15%] left-[15%] w-8 h-8 sm:w-10 sm:h-10 text-blue-200 opacity-70 animate-subtle-float" style="animation-delay: 1s;"></i>
-        <i data-lucide="users" class="absolute bottom-[20%] right-[15%] w-7 h-7 text-blue-200 opacity-80 animate-subtle-float" style="animation-delay: 1.5s;"></i>
-
+        <i data-lucide="share-2" class="absolute top-[25%] left-[5%] w-6 h-6 sm:w-8 sm:h-8 text-blue-400/40 animate-subtle-float" style="animation-delay: 0.5s;"></i>
+        <i data-lucide="wifi" class="hidden sm:block absolute top-[15%] right-[8%] w-12 h-12 text-blue-400/30 animate-subtle-float"></i>
+        <i data-lucide="at-sign" class="hidden md:block absolute bottom-[15%] left-[15%] w-8 h-8 sm:w-10 sm:h-10 text-blue-400/35 animate-subtle-float" style="animation-delay: 1s;"></i>
+        <i data-lucide="users" class="absolute bottom-[20%] right-[15%] w-7 h-7 text-blue-400/40 animate-subtle-float" style="animation-delay: 1.5s;"></i>
       </div>
 
       <div class="max-w-3xl mx-auto relative z-10 px-4">
-        <p class="font-semibold text-blue-600 tracking-wider uppercase text-sm animate-fade-in-up delay-100">Campus Party 2025</p>
-        <h2 class="mt-3 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 animate-fade-in-up delay-200">
+        <p class="font-semibold text-[#759fff] tracking-wider uppercase text-sm animate-fade-in-up delay-100">Campus Party 2025</p>
+        
+        <h2 class="mt-3 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white animate-fade-in-up delay-200">
           Conecte-se em um único lugar
         </h2>
-        <p class="mt-4 sm:mt-6 text-base sm:text-lg text-gray-600 animate-fade-in-up delay-300">
-          <span class="font-bold text-slate-800">Cadastre.</span>
-          <span class="text-gray-500">Conecte.</span>
+      
+        <p class="mt-4 sm:mt-6 text-base sm:text-lg animate-fade-in-up delay-300">
+          <span class="font-bold text-[#759fff]">Cadastre.</span>
+          <span class="text-[#e5e7ebdb]">Conecte.</span>
         </p>
       </div>
     </section>
+
 
 
     <!-- Layout Principal (Formulário e Lista) -->
