@@ -242,6 +242,7 @@ app.get('/admin', async (req, res) => {
     let html = `
       <h1>Painel Admin</h1>
       <p>Total: ${rows.length} participantes</p>
+      <p><a href="/admin/export?key=${ADMIN_KEY}" target="_blank">⬇️ Exportar CSV</a></p>
       <table border="1" cellpadding="6" cellspacing="0">
         <tr><th>ID</th><th>Nome</th><th>LinkedIn</th><th>Ações</th></tr>
     `;
@@ -267,6 +268,33 @@ app.get('/admin', async (req, res) => {
   } catch (err) {
     console.error('[DB ADMIN ERROR]', err);
     res.status(500).send('<p>Erro ao carregar admin.</p>');
+  }
+});
+
+// Exportação CSV
+app.get('/admin/export', async (req, res) => {
+  const key = req.query.key || '';
+  if (key !== ADMIN_KEY) {
+    return res.status(403).send('<h2>Acesso negado</h2><p>Chave inválida.</p>');
+  }
+
+  try {
+    const { rows } = await pool.query(
+      'SELECT id, name, linkedin_url, created_at FROM participants ORDER BY created_at DESC, id DESC'
+    );
+
+    // Montar CSV
+    let csv = 'ID,Nome,LinkedIn,Criado em\n';
+    rows.forEach(p => {
+      csv += `${p.id},"${p.name.replace(/"/g, '""')}",${p.linkedin_url},${p.created_at.toISOString()}\n`;
+    });
+
+    res.header('Content-Type', 'text/csv');
+    res.attachment('participantes.csv');
+    return res.send(csv);
+  } catch (err) {
+    console.error('[DB EXPORT ERROR]', err);
+    res.status(500).send('<p>Erro ao exportar participantes.</p>');
   }
 });
 
